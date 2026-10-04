@@ -1,0 +1,78 @@
+{
+  "id": "catan-banter-quiet",
+  "game": "Catan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe",
+    "Dev"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "Ordinary legal play and table banter. Tablemate should stay silent.",
+  "lines": [
+    {
+      "who": "Ben",
+      "say": "who wants more pizza there's like three slices left"
+    },
+    {
+      "who": "Chloe",
+      "say": "me please"
+    },
+    {
+      "who": "Dev",
+      "say": "ok rolling a nine"
+    },
+    {
+      "who": "Ana",
+      "say": "I get two ore from my city"
+    },
+    {
+      "who": "Dev",
+      "say": "anyone want to trade sheep for brick"
+    },
+    {
+      "who": "Chloe",
+      "say": "I'll give you a brick for a sheep"
+    },
+    {
+      "who": "Dev",
+      "say": "deal"
+    },
+    {
+      "who": "Dev",
+      "say": "then I'll build a road with brick and lumber"
+    },
+    {
+      "who": "Ben",
+      "say": "you're going for longest road huh"
+    },
+    {
+      "who": "Dev",
+      "say": "maybe"
+    },
+    {
+      "who": "Ana",
+      "say": "this song is so good who made this playlist"
+    },
+    {
+      "who": "Chloe",
+      "say": "that's mine"
+    },
+    {
+      "who": "Dev",
+      "say": "ok I'm done Ana it's you",
+      "pause": 3
+    },
+    {
+      "who": "Ana",
+      "say": "rolling a five"
+    },
+    {
+      "who": "Ben",
+      "say": "I get a lumber",
+      "pause": 2
+    }
+  ]
+}

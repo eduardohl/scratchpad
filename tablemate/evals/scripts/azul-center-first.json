@@ -1,0 +1,50 @@
+{
+  "id": "azul-center-first",
+  "game": "Azul",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "First take from the center this round without taking the first-player marker.",
+  "rulebook": "FACTORY OFFER (excerpt, paraphrased): On your turn, either pick all tiles of one color from one factory display and move the rest to the center, or pick all tiles of one color from the center. If you are the first player this round to pick from the center, also take the starting player marker and place it on the leftmost free space of your floor line. Then place the tiles in one pattern line. You may not place tiles of a color in a pattern line whose corresponding wall row already has that color.",
+  "lines": [
+    {
+      "who": "Ana",
+      "say": "I'll take the two yellows from this factory"
+    },
+    {
+      "who": "Ben",
+      "say": "I'll take the black ones from that factory"
+    },
+    {
+      "who": "Chloe",
+      "say": "factory with the reds the rest go in the middle"
+    },
+    {
+      "who": "Ana",
+      "say": "ok nobody has touched the middle yet"
+    },
+    {
+      "who": "Ben",
+      "say": "I'll take the two blues from the middle then",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "The first player to take from the center also takes the first-player marker: it goes on their floor line (minus 1 point) and they start next round."
+      }
+    },
+    {
+      "who": "Chloe",
+      "say": "ok"
+    },
+    {
+      "who": "Ana",
+      "say": "my turn again",
+      "pause": 3
+    }
+  ]
+}

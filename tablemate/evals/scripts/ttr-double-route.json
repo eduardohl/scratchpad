@@ -1,0 +1,41 @@
+{
+  "id": "ttr-double-route",
+  "game": "Ticket to Ride",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "In a 3-player game a player claims the second track of a double route.",
+  "lines": [
+    {
+      "who": "Ben",
+      "say": "I'll claim the other track of the double route between Seattle and Portland"
+    },
+    {
+      "who": "Ana",
+      "say": "the one right next to mine"
+    },
+    {
+      "who": "Ben",
+      "say": "yeah the parallel one",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "With 2 or 3 players only one track of each double route may be used; once Ana claimed one, the other is closed."
+      }
+    },
+    {
+      "who": "Ana",
+      "say": "ok go ahead"
+    },
+    {
+      "who": "Chloe",
+      "say": "my turn",
+      "pause": 3
+    }
+  ]
+}

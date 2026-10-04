@@ -1,0 +1,46 @@
+{
+  "id": "tm-greenery-cost",
+  "game": "Terraforming Mars",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "The table agrees a greenery standard project costs 20. It costs 23.",
+  "rulebook": "STANDARD PROJECTS (excerpt, paraphrased): Sell patents: discard any number of cards to gain 1 M€ each. Power plant: 11 M€, increase energy production 1 step. Asteroid: 14 M€, raise temperature 1 step. Aquifer: 18 M€, place an ocean tile. Greenery: 23 M€, place a greenery tile (raises oxygen 1 step). City: 25 M€, place a city tile and increase M€ production 1 step.",
+  "lines": [
+    {
+      "who": "Chloe",
+      "say": "how much is the greenery standard project"
+    },
+    {
+      "who": "Ben",
+      "say": "it's twenty right"
+    },
+    {
+      "who": "Chloe",
+      "say": "yeah twenty",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "The greenery standard project costs 23 megacredits (it places a greenery tile and raises oxygen one step)."
+      }
+    },
+    {
+      "who": "Chloe",
+      "say": "ok paying twenty for a greenery"
+    },
+    {
+      "who": "Ana",
+      "say": "nice that raises oxygen"
+    },
+    {
+      "who": "Chloe",
+      "say": "done",
+      "pause": 3
+    }
+  ]
+}

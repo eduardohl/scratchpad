@@ -1,0 +1,49 @@
+{
+  "id": "wingspan-setup-keep",
+  "game": "Wingspan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "setup",
+  "notes": "The table keeps all 5 birds and all 5 food. You keep 5 total, discarding a food per bird kept.",
+  "lines": [
+    {
+      "who": "Chloe",
+      "say": "ok everyone got five bird cards and five food tokens"
+    },
+    {
+      "who": "Ana",
+      "say": "and two bonus cards"
+    },
+    {
+      "who": "Ben",
+      "say": "so we keep all five birds and all five food right"
+    },
+    {
+      "who": "Chloe",
+      "say": "yep keep everything",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "Keep up to 5 birds, but for each bird you keep you discard one food token (birds kept plus food kept equals 5); then keep 1 of the 2 bonus cards."
+      }
+    },
+    {
+      "who": "Ana",
+      "say": "nice that's a strong start"
+    },
+    {
+      "who": "Ben",
+      "say": "I'm keeping both bonus cards too"
+    },
+    {
+      "who": "Chloe",
+      "say": "ok who goes first",
+      "pause": 3
+    }
+  ]
+}

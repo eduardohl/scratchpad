@@ -11,7 +11,7 @@ type Block = Anthropic.Beta.BetaContentBlockParam;
 
 const client = new Anthropic();
 
-const LISTENER_MODEL = process.env.TABLEMATE_LISTENER_MODEL || "claude-opus-5-5";
+export const LISTENER_MODEL = process.env.TABLEMATE_LISTENER_MODEL || "claude-opus-5-5";
 const ANSWER_MODEL = process.env.TABLEMATE_ANSWER_MODEL || "claude-opus-5-5";
 
 // Route safety-classifier declines to Anthropic's recommended fallback model instead of failing.
@@ -85,7 +85,19 @@ const SILENT: ListenResult["intervention"] = {
   topicKey: "",
 };
 
+export interface CallUsage {
+  input: number;
+  cacheRead: number;
+  cacheWrite: number;
+  output: number;
+}
+
 export async function listen(req: ListenRequest): Promise<ListenResult> {
+  return (await listenDetailed(req)).result;
+}
+
+/** The listener's prompt: stable cached prefix (rulebook + playbook), then this moment's state and transcript. */
+export function listenPrompt(req: ListenRequest): { system: string; content: Block[] } {
   const start = req.earlier[0]?.at ?? req.recent[0]?.at ?? Date.now();
   const volatile = `${stateText(req.state)}
 
@@ -98,26 +110,40 @@ ${transcriptText(req.earlier, start)}
 
 NEW SINCE YOUR LAST LOOK (judge this):
 ${transcriptText(req.recent, start)}`;
+  return { system: LISTEN_SYSTEM, content: [...tableContext(req.config, req.brief), { type: "text", text: volatile }] };
+}
 
+/** Same as listen(), plus token usage, which the eval harness uses to measure cost. */
+export async function listenDetailed(req: ListenRequest): Promise<{ result: ListenResult; usage: CallUsage }> {
+  const prompt = listenPrompt(req);
   const res = await client.beta.messages.parse({
     ...RESILIENCE,
     model: LISTENER_MODEL,
     max_tokens: 4000,
     output_config: { effort: "low", format: betaZodOutputFormat(ListenResultSchema) },
-    system: LISTEN_SYSTEM,
-    messages: [{ role: "user", content: [...tableContext(req.config, req.brief), { type: "text", text: volatile }] }],
+    system: prompt.system,
+    messages: [{ role: "user", content: prompt.content }],
   });
 
+  const usage: CallUsage = {
+    input: res.usage.input_tokens,
+    cacheRead: res.usage.cache_read_input_tokens ?? 0,
+    cacheWrite: res.usage.cache_creation_input_tokens ?? 0,
+    output: res.usage.output_tokens,
+  };
   const out = res.stop_reason === "refusal" ? null : res.parsed_output;
   if (!out) {
     return {
-      state: { phase: null, round: null, activePlayer: null, completedSetupStepIds: [], logEntries: [] },
-      intervention: SILENT,
+      result: {
+        state: { phase: null, round: null, activePlayer: null, completedSetupStepIds: [], logEntries: [] },
+        intervention: SILENT,
+      },
+      usage,
     };
   }
   out.intervention.confidence = Math.min(1, Math.max(0, out.intervention.confidence));
   if (!out.intervention.speak) out.intervention = { ...SILENT };
-  return out;
+  return { result: out, usage };
 }
 
 /**

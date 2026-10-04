@@ -39,6 +39,16 @@ describe("detectCues", () => {
     expect(detectCues("who wants more pizza")).toEqual([]);
     expect(detectCues("nice move")).toEqual([]);
   });
+  it("spots round transitions in any game", () => {
+    expect(detectCues("ok round two everyone has seven cubes")).toContain("phase-change");
+    expect(detectCues("everyone passed so production")).toContain("phase-change");
+    expect(detectCues("the round is over")).toContain("phase-change");
+  });
+  it("uses the game's watch words", () => {
+    expect(detectCues("seven robber time", ["robber", "bank"])).toContain("game-moment");
+    expect(detectCues("seven robber time")).not.toContain("game-moment");
+    expect(detectCues("I'll give the Bank two wheat", ["bank"])).toContain("game-moment");
+  });
   it("does not match cue fragments inside other words", () => {
     expect(detectCues("the canine ate my meeple")).toEqual([]);
   });
@@ -71,6 +81,17 @@ describe("shouldCheck", () => {
   it("does not spam calls", () => {
     const d = shouldCheck(checkCtx({ pending: [u("can I do that", 98_000)], lastSpeechAt: 98_000, lastCheckAt: 97_000 }));
     expect(d.check).toBe(false);
+  });
+  it("checks game moments, but less eagerly than questions", () => {
+    const pending = [u("seven robber time", 98_000)];
+    const base = { pending, lastSpeechAt: 98_000, watchWords: ["robber"] };
+    expect(shouldCheck(checkCtx({ ...base, lastCheckAt: 90_000 })).check).toBe(false);
+    expect(shouldCheck(checkCtx({ ...base, lastCheckAt: 80_000 })).check).toBe(true);
+  });
+  it("glances at a busy table with no cues", () => {
+    const pending = ["pizza", "ha", "ok", "nice", "go"].map((t, i) => u(t, 90_000 + i * 1000));
+    expect(shouldCheck(checkCtx({ pending, lastSpeechAt: 94_000, lastCheckAt: 85_000 })).check).toBe(false);
+    expect(shouldCheck(checkCtx({ pending, lastSpeechAt: 94_000, lastCheckAt: 75_000 })).check).toBe(true);
   });
   it("ignores banter until the sweep interval", () => {
     const pending = [u("pizza", 95_000), u("ha", 96_000)];

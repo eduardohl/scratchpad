@@ -1,0 +1,54 @@
+{
+  "id": "wingspan-round-end",
+  "game": "Wingspan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe",
+    "Dev"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "Round 1 ends and the table moves straight into round 2 without the end-of-round steps.",
+  "lines": [
+    {
+      "who": "Dev",
+      "say": "I'll lay eggs that's my last cube"
+    },
+    {
+      "who": "Ana",
+      "say": "and I'm out of cubes too"
+    },
+    {
+      "who": "Ben",
+      "say": "ok that's everyone out round one done"
+    },
+    {
+      "who": "Chloe",
+      "say": "so round two everyone has seven cubes now",
+      "expect": {
+        "type": "speak",
+        "category": "skipped-step",
+        "fact": "End of round: score the round's goal on the goal board (place an action cube there), discard and refill the bird tray, and pass the first-player token."
+      }
+    },
+    {
+      "who": "Ben",
+      "say": "ok Chloe you start"
+    },
+    {
+      "who": "Chloe",
+      "say": "I'll play a bird in the forest"
+    },
+    {
+      "who": "Dev",
+      "say": "what bird is that"
+    },
+    {
+      "who": "Chloe",
+      "say": "a blue jay",
+      "pause": 3
+    }
+  ]
+}

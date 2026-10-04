@@ -1,0 +1,46 @@
+{
+  "id": "tm-production-energy",
+  "game": "Terraforming Mars",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe",
+    "Dev"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "In the production phase a player keeps leftover energy instead of converting it to heat.",
+  "lines": [
+    {
+      "who": "Dev",
+      "say": "ok I pass"
+    },
+    {
+      "who": "Chloe",
+      "say": "everyone's passed so production"
+    },
+    {
+      "who": "Ben",
+      "say": "I get twenty two megacredits from TR plus production"
+    },
+    {
+      "who": "Ana",
+      "say": "I have four energy left over I'll just keep it for next generation",
+      "expect": {
+        "type": "speak",
+        "category": "skipped-step",
+        "fact": "At the start of production, all leftover energy converts to heat; then each player produces megacredits (TR plus production), steel, titanium, plants, energy and heat."
+      }
+    },
+    {
+      "who": "Dev",
+      "say": "ok then new generation"
+    },
+    {
+      "who": "Chloe",
+      "say": "first player marker goes to Ben",
+      "pause": 3
+    }
+  ]
+}

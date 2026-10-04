@@ -4,67 +4,27 @@
 // sensible moments, and decides when (and how loudly) Tablemate surfaces anything.
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { admit, detectWake, PAUSE_MS, shouldCheck, windowTranscript } from "@/lib/gate";
-import type { Delivery } from "@/lib/gate";
-import type {
-  AskMode,
-  GameBrief,
-  GameConfig,
-  Intervention,
-  ListenResult,
-  Phase,
-  Settings,
-  TableState,
-  Utterance,
-} from "@/lib/types";
+import { detectWake } from "@/lib/gate";
+import {
+  applyListenResult,
+  buildListenRequest,
+  deliveryStep,
+  isTalking,
+  nextCheck,
+  queueIntervention,
+  recordSurfaced,
+  recordTip,
+} from "@/lib/engine";
+import type { Clock } from "@/lib/engine";
+import type { FeedItem, Session } from "@/lib/session";
+import type { AskMode, ListenResult, Phase, Settings, Utterance } from "@/lib/types";
 import { chime, speak, useSpeech } from "./useSpeech";
 
-export interface FeedItem extends Intervention {
-  delivery: Delivery;
-  question?: string;
-  streaming?: boolean;
-  feedback?: "up" | "down";
-}
-
-export interface Session {
-  config: GameConfig;
-  brief: GameBrief;
-  settings: Settings;
-  state: TableState;
-  utterances: Utterance[];
-  /** Timestamp of the newest utterance the listener has already judged. */
-  seenUpTo: number;
-  feed: FeedItem[];
-  /** Quiet tips held back from interrupting; one tap away. */
-  tips: FeedItem[];
-  recentTopics: Record<string, number>;
-  lastUnsolicitedAt: number;
-  dismissStreak: number;
-  startedAt: number;
-  recap?: string;
-}
+export type { FeedItem, Session } from "@/lib/session";
+export { newSession } from "@/lib/session";
 
 const STORAGE_KEY = "tablemate:session:v1";
 const MAX_UTTERANCES = 400;
-/** If the moment passes before the table pauses, demote the intervention to a quiet tip. */
-const STALE_MS = 30_000;
-
-export function newSession(config: GameConfig, brief: GameBrief, settings: Settings): Session {
-  return {
-    config,
-    brief,
-    settings,
-    state: { phase: "setup", round: null, activePlayer: null, completedSetup: [], scores: {}, log: [] },
-    utterances: [],
-    seenUpTo: 0,
-    feed: [],
-    tips: [],
-    recentTopics: {},
-    lastUnsolicitedAt: 0,
-    dismissStreak: 0,
-    startedAt: Date.now(),
-  };
-}
 
 export function loadSession(): Session | null {
   try {
@@ -129,13 +89,7 @@ export function useTable(initial: Session) {
 
   const surface = useCallback(
     (item: FeedItem) => {
-      const now = Date.now();
-      update((s) => ({
-        ...s,
-        feed: [...s.feed, item].slice(-50),
-        lastUnsolicitedAt: item.direct ? s.lastUnsolicitedAt : now,
-        recentTopics: item.topicKey ? { ...s.recentTopics, [item.topicKey]: now } : s.recentTopics,
-      }));
+      update((s) => recordSurfaced(s, item, Date.now()));
       if (item.delivery === "voice") void say(item.message);
       else chime();
     },
@@ -228,81 +182,35 @@ export function useTable(initial: Session) {
 
   const applyListen = useCallback(
     (result: ListenResult) => {
-      const s = sRef.current;
-      const st = result.state;
-      if (st.phase && st.phase !== s.state.phase) setPhaseNotice({ from: s.state.phase, to: st.phase });
-      update((x) => ({
-        ...x,
-        state: {
-          ...x.state,
-          phase: st.phase ?? x.state.phase,
-          round: st.round ?? x.state.round,
-          activePlayer: st.activePlayer ?? x.state.activePlayer,
-          completedSetup: Array.from(new Set([...x.state.completedSetup, ...st.completedSetupStepIds])),
-          log: [...x.state.log, ...st.logEntries].slice(-100),
-        },
-      }));
-
-      const iv = result.intervention;
-      if (!iv.speak) {
-        setActivity({ kind: "decided", text: "Stayed quiet", at: Date.now() });
-        return;
-      }
-      const item: FeedItem = { ...iv, id: uid(), at: Date.now(), delivery: "drop" };
-      const decision = admit(item, {
-        presence: s.settings.presence,
-        voice: s.settings.voice,
-        phase: st.phase ?? s.state.phase,
-        now: Date.now(),
-        lastUnsolicitedAt: s.lastUnsolicitedAt,
-        recentTopics: s.recentTopics,
-        dismissStreak: s.dismissStreak,
+      const now = Date.now();
+      const p = applyListenResult(sRef.current, result, now, uid());
+      sRef.current = p.session;
+      setSession(p.session);
+      if (p.phaseChange) setPhaseNotice(p.phaseChange);
+      if (p.item) pendingRef.current = queueIntervention(pendingRef.current, p.item);
+      setActivity({
+        kind: "decided",
+        text: p.decision ? `Had a thought (${p.decision.delivery}): ${p.decision.why}` : "Stayed quiet",
+        at: now,
       });
-      item.delivery = decision.delivery;
-      setActivity({ kind: "decided", text: `Had a thought (${decision.delivery}): ${decision.why}`, at: Date.now() });
-
-      if (decision.delivery === "badge") {
-        update((x) => ({
-          ...x,
-          tips: [...x.tips, item].slice(-20),
-          recentTopics: item.topicKey ? { ...x.recentTopics, [item.topicKey]: Date.now() } : x.recentTopics,
-        }));
-      } else if (decision.delivery !== "drop") {
-        const queued = pendingRef.current;
-        const rank = { low: 0, normal: 1, high: 2 } as const;
-        if (!queued || rank[item.urgency] >= rank[queued.urgency]) pendingRef.current = item;
-      }
     },
-    [update],
+    [],
   );
 
   const check = useCallback(
     async (reason: string) => {
-      const s = sRef.current;
-      const { earlier, recent } = windowTranscript(s.utterances, s.seenUpTo);
-      if (recent.length === 0) return;
-      inFlightRef.current = true;
-      lastCheckAtRef.current = Date.now();
-      const seenUpTo = recent[recent.length - 1].at;
-      update((x) => ({ ...x, seenUpTo: Math.max(x.seenUpTo, seenUpTo) }));
-      setActivity({ kind: "checking", reason });
       const now = Date.now();
+      const built = buildListenRequest(sRef.current, reason, now);
+      if (!built) return;
+      inFlightRef.current = true;
+      lastCheckAtRef.current = now;
+      update((x) => ({ ...x, seenUpTo: Math.max(x.seenUpTo, built.seenUpTo) }));
+      setActivity({ kind: "checking", reason });
       try {
         const res = await fetch("/api/listen", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            config: s.config,
-            brief: s.brief,
-            state: s.state,
-            presence: s.settings.presence,
-            earlier,
-            recent: recent.slice(-80),
-            recentTopics: Object.entries(s.recentTopics)
-              .filter(([, at]) => now - at < 10 * 60_000)
-              .map(([k]) => k),
-            reason,
-          }),
+          body: JSON.stringify(built.request),
         });
         const body = await res.json();
         if (!res.ok) throw new Error(body.error ?? "Listen failed");
@@ -322,32 +230,28 @@ export function useTable(initial: Session) {
     const timer = setInterval(() => {
       const s = sRef.current;
       const now = Date.now();
-      const lastSpeechAt = Math.max(speech.lastSpeechAtRef.current, s.utterances.at(-1)?.at ?? 0);
-      const talking = interimRef.current !== "" || now - lastSpeechAt < PAUSE_MS || mutedRef.current;
+      const clock: Clock = {
+        now,
+        lastCheckAt: lastCheckAtRef.current,
+        lastSpeechAt: Math.max(speech.lastSpeechAtRef.current, s.utterances.at(-1)?.at ?? 0),
+        speaking: interimRef.current !== "" || mutedRef.current,
+      };
 
       // Deliver a queued intervention only into a lull in the conversation.
       const pending = pendingRef.current;
-      if (pending) {
-        if (now - pending.at > STALE_MS) {
+      switch (deliveryStep(pending, clock)) {
+        case "stale":
           pendingRef.current = null;
-          update((x) => ({ ...x, tips: [...x.tips, { ...pending, delivery: "badge" as const }].slice(-20) }));
-        } else if (!talking) {
+          update((x) => recordTip(x, pending!, now));
+          break;
+        case "deliver":
           pendingRef.current = null;
-          surface(pending);
-        }
+          surface(pending!);
+          break;
       }
 
-      if (inFlightRef.current) return;
-      const { recent } = windowTranscript(s.utterances, s.seenUpTo);
-      const decision = shouldCheck({
-        pending: recent.filter((u) => !u.addressed),
-        lastCheckAt: lastCheckAtRef.current,
-        lastSpeechAt,
-        speaking: interimRef.current !== "",
-        now,
-        phase: s.state.phase,
-        presence: s.settings.presence,
-      });
+      if (inFlightRef.current || isTalking(clock)) return;
+      const decision = nextCheck(s, clock);
       if (decision.check) void check(decision.reason);
     }, 500);
     return () => clearInterval(timer);

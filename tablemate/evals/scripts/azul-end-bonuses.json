@@ -1,0 +1,49 @@
+{
+  "id": "azul-end-bonuses",
+  "game": "Azul",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "wrapup",
+  "notes": "Game ends and the table just reads the score track, forgetting end-game bonuses.",
+  "lines": [
+    {
+      "who": "Chloe",
+      "say": "I finished a whole horizontal row"
+    },
+    {
+      "who": "Ben",
+      "say": "that means game over right"
+    },
+    {
+      "who": "Ana",
+      "say": "yep game over"
+    },
+    {
+      "who": "Ana",
+      "say": "so final scores are just where we are on the track",
+      "expect": {
+        "type": "speak",
+        "category": "skipped-step",
+        "fact": "Add end-game bonuses before comparing: 2 points per complete horizontal row, 7 per complete vertical column, 10 per color with all 5 tiles on the wall."
+      }
+    },
+    {
+      "who": "Chloe",
+      "say": "I'm on forty eight"
+    },
+    {
+      "who": "Ben",
+      "say": "forty four for me"
+    },
+    {
+      "who": "Ana",
+      "say": "fifty one so I win",
+      "pause": 3
+    }
+  ]
+}

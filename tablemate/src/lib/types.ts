@@ -22,6 +22,8 @@ export interface Utterance {
   at: number; // epoch ms
   /** Typed into the app rather than heard. */
   typed?: boolean;
+  /** Who said it, when the transcriber can tell voices apart (player name or "someone"). */
+  speaker?: string;
   /** Addressed to Tablemate by name; it was answered directly, so the listener shouldn't re-answer. */
   addressed?: boolean;
 }
@@ -64,6 +66,8 @@ export interface GameBrief {
   endTrigger: string;
   scoring: ScoringCategory[];
   commonMistakes: string[];
+  /** Words spoken right when this game's rules tend to slip ("robber", "bank"). Older playbooks lack it. */
+  watchWords?: string[];
 }
 
 export interface GameConfig {

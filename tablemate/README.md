@@ -28,7 +28,9 @@ Most of the work is deciding *not* to talk. There are three layers:
 
    Several rules feed into that decision. A minimum confidence depends on the presence level (quiet, balanced or guide). There's a cooldown between unprompted interruptions, and a topic raised once isn't repeated for 10 minutes. Anything waiting for a pause that the table never gives within 30 s is demoted to a badge. Each **"Not now"** makes it more reserved, and a 👍 resets that.
 
-Every rule here is a pure function with unit tests (`npm test`), so the etiquette can be tuned without touching prompts.
+Every rule here is a pure function with unit tests (`npm test`), so the etiquette can be tuned without touching prompts. The decision loop itself lives in `src/lib/engine.ts`. Both the React hook and the eval harness drive it, so evals measure exactly what runs at the table.
+
+The playbook also gives the gate a few **watch words**: words this particular game's rules tend to slip on (Catan: "robber", "bank"). Hearing one triggers a closer look, at most every 15 s.
 
 ### Accuracy
 
@@ -68,8 +70,12 @@ cd tablemate
 cp .env.example .env.local   # add your ANTHROPIC_API_KEY
 npm install
 npm run dev                  # http://localhost:3000
-npm test                     # etiquette unit tests
+npm test                     # etiquette + eval-scoring unit tests
+npm run eval                 # free dry run of the eval suite (see evals/README.md)
+npm run eval -- --yes        # live eval run against Claude
 ```
+
+The roadmap and milestone status are in [PLAN.md](PLAN.md).
 
 Use Chrome, Edge or Safari for speech recognition. The mic needs `localhost` or HTTPS. Put a phone or tablet in the middle of the table.
 

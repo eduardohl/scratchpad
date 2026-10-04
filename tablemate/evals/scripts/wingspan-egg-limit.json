@@ -1,0 +1,45 @@
+{
+  "id": "wingspan-egg-limit",
+  "game": "Wingspan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "A player overfills a bird's nest; one player doubts it but the table waves it off.",
+  "lines": [
+    {
+      "who": "Ben",
+      "say": "ok lay eggs I get three eggs"
+    },
+    {
+      "who": "Ben",
+      "say": "I'll put all three on my hawk"
+    },
+    {
+      "who": "Ana",
+      "say": "doesn't the hawk only hold two"
+    },
+    {
+      "who": "Ben",
+      "say": "eh whatever there's room on the card",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "A bird can't hold more eggs than its egg limit printed on the card; the extra egg must go on another bird with space (or is lost)."
+      }
+    },
+    {
+      "who": "Chloe",
+      "say": "ok my turn"
+    },
+    {
+      "who": "Chloe",
+      "say": "I'll gain food",
+      "pause": 3
+    }
+  ]
+}

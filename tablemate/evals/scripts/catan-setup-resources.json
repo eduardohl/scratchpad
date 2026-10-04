@@ -1,0 +1,58 @@
+{
+  "id": "catan-setup-resources",
+  "game": "Catan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "setup",
+  "notes": "During initial placement the table says the FIRST settlement gives starting resources. It's the second.",
+  "lines": [
+    {
+      "who": "Ana",
+      "say": "ok so we each place a settlement and a road then go back the other way"
+    },
+    {
+      "who": "Ben",
+      "say": "right snake order"
+    },
+    {
+      "who": "Chloe",
+      "say": "and we get resources from the first settlement right"
+    },
+    {
+      "who": "Ben",
+      "say": "yeah from the first one",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "Starting resources come from the SECOND settlement placed (one resource per adjacent terrain hex), not the first."
+      }
+    },
+    {
+      "who": "Ana",
+      "say": "ok I'll take my wool and brick from this one then"
+    },
+    {
+      "who": "Ben",
+      "say": "I'll place mine here by the ore"
+    },
+    {
+      "who": "Chloe",
+      "say": "and mine on the coast"
+    },
+    {
+      "who": "Ana",
+      "say": "alright everyone has two settlements let's start playing",
+      "pause": 3,
+      "expect": {
+        "type": "ok",
+        "category": "phase",
+        "fact": "Setup is done; the player who placed first rolls to start."
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "wingspan-brown-power",
+  "game": "Wingspan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "The table is stuck on when a brown power activates and settles on a wrong guess.",
+  "lines": [
+    {
+      "who": "Ana",
+      "say": "I'll play this bird in the wetland it has a brown power"
+    },
+    {
+      "who": "Ana",
+      "say": "does the brown power go off now when I play it or later"
+    },
+    {
+      "who": "Ben",
+      "say": "I have no idea",
+      "expect": {
+        "type": "speak",
+        "category": "stuck-question",
+        "fact": "Brown powers activate when you take that habitat's action (activating birds right to left in the row), not when the bird is played; only white powers trigger when played."
+      }
+    },
+    {
+      "who": "Chloe",
+      "say": "I think it goes off right when you play it"
+    },
+    {
+      "who": "Ana",
+      "say": "ok let's just do that then it lets me draw a card"
+    },
+    {
+      "who": "Ben",
+      "say": "sure"
+    },
+    {
+      "who": "Ana",
+      "say": "ok drawing a card",
+      "pause": 3
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "azul-wall-color",
+  "game": "Azul",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "A player puts reds in a pattern line whose wall row already has red.",
+  "rulebook": "FACTORY OFFER (excerpt, paraphrased): You may not place tiles of a color in a pattern line whose corresponding wall row already has that color. Tiles you cannot or do not want to place go to the floor line.",
+  "lines": [
+    {
+      "who": "Chloe",
+      "say": "I'll take the three reds"
+    },
+    {
+      "who": "Chloe",
+      "say": "and put them on row three"
+    },
+    {
+      "who": "Ben",
+      "say": "you already have red on row three of your wall"
+    },
+    {
+      "who": "Chloe",
+      "say": "oh it's fine I'll put them there anyway",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "You can't place a color in a pattern line if that row of your wall already has that color; the reds must go in another row or the floor line."
+      }
+    },
+    {
+      "who": "Ana",
+      "say": "ok my turn"
+    },
+    {
+      "who": "Ana",
+      "say": "I'll take blue",
+      "pause": 3
+    }
+  ]
+}

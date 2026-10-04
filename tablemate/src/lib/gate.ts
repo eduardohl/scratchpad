@@ -128,15 +128,23 @@ export function detectWake(text: string, wakeWords: string[]): WakeMatch {
   return { addressed: false, rest: text };
 }
 
-export type Cue = "rule-question" | "phase-change";
+/** Round/turn transitions, in any game: "round two", "that's the round", "everyone passed". */
+const ROUND_TRANSITION = /\b(round (one|two|three|four|five|six|seven|eight|nine|ten|\d+)|round('s| is)? (done|over)|end of (the )?round|everyone('s| is)? (out|passed|done))\b/;
 
-export function detectCues(text: string): Cue[] {
+export type Cue = "rule-question" | "phase-change" | "game-moment";
+
+/**
+ * @param watchWords game-specific words from the playbook that are spoken right when this
+ *   game's rules are most often misapplied (e.g. Catan: "robber", "bank", "seven").
+ */
+export function detectCues(text: string, watchWords: string[] = []): Cue[] {
   const n = normalize(text);
   const cues: Cue[] = [];
   if (RULE_QUESTION_CUES.some((c) => containsPhrase(n, c))) cues.push("rule-question");
-  if (Object.values(PHASE_CUES).some((list) => list.some((c) => containsPhrase(n, c)))) {
+  if (Object.values(PHASE_CUES).some((list) => list.some((c) => containsPhrase(n, c))) || ROUND_TRANSITION.test(n)) {
     cues.push("phase-change");
   }
+  if (watchWords.some((w) => w.trim() && containsPhrase(n, normalize(w).trim()))) cues.push("game-moment");
   return cues;
 }
 
@@ -154,8 +162,17 @@ const SWEEP_MS: Record<Presence, Record<Phase, number>> = {
   guide: { setup: 20_000, teach: 30_000, play: 30_000, wrapup: 25_000 },
 };
 
+/**
+ * When the table is busy (several new lines) but nobody said a cue phrase, glance this often.
+ * Quiet mistakes ("I'll give the bank two wheat") rarely come with a cue.
+ */
+const BUSY_SWEEP_MS: Record<Presence, number> = { quiet: 45_000, balanced: 20_000, guide: 15_000 };
+const BUSY_LINES = 5;
+
 /** Never call the listener more often than this, whatever the cues say. */
 export const MIN_CHECK_GAP_MS = 6_000;
+/** Game watch words are common, so they earn a check less eagerly than an explicit question. */
+export const GAME_MOMENT_GAP_MS = 15_000;
 
 export interface CheckContext {
   pending: Utterance[];
@@ -165,6 +182,7 @@ export interface CheckContext {
   now: number;
   phase: Phase;
   presence: Presence;
+  watchWords?: string[];
 }
 
 export interface CheckDecision {
@@ -178,16 +196,21 @@ export function shouldCheck(ctx: CheckContext): CheckDecision {
   if (ctx.speaking || now - ctx.lastSpeechAt < PAUSE_MS) return { check: false, reason: "table is talking" };
   if (now - ctx.lastCheckAt < MIN_CHECK_GAP_MS) return { check: false, reason: "checked moments ago" };
 
-  const cues = new Set(pending.flatMap((u) => detectCues(u.text)));
+  const sinceCheck = now - ctx.lastCheckAt;
+  const cues = new Set(pending.flatMap((u) => detectCues(u.text, ctx.watchWords)));
   if (cues.has("rule-question")) return { check: true, reason: "someone sounds unsure about a rule" };
   if (cues.has("phase-change")) return { check: true, reason: "the table may be changing phase" };
   if (pending.some((u) => u.typed)) return { check: true, reason: "a note was typed in" };
+  if (cues.has("game-moment") && sinceCheck >= GAME_MOMENT_GAP_MS) {
+    return { check: true, reason: "a moment where this game's rules often slip" };
+  }
 
-  const sweep = SWEEP_MS[ctx.presence][ctx.phase];
-  if (now - ctx.lastCheckAt >= sweep && pending.length >= 2) {
+  if (sinceCheck >= SWEEP_MS[ctx.presence][ctx.phase] && pending.length >= 2) {
     return { check: true, reason: "routine glance at recent play" };
   }
-  if (pending.length >= 14) return { check: true, reason: "a lot has been said" };
+  if (sinceCheck >= BUSY_SWEEP_MS[ctx.presence] && pending.length >= BUSY_LINES) {
+    return { check: true, reason: "a lot of play since the last look" };
+  }
   return { check: false, reason: "no cue yet" };
 }
 

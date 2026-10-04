@@ -1,0 +1,58 @@
+{
+  "id": "catan-seven-discard",
+  "game": "Catan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe",
+    "Dev"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "A 7 is rolled and Ana, holding 9 cards, doesn't discard. Should remind about discarding half.",
+  "lines": [
+    {
+      "who": "Dev",
+      "say": "come on come on"
+    },
+    {
+      "who": "Dev",
+      "say": "seven robber time"
+    },
+    {
+      "who": "Ana",
+      "say": "oh no I have nine cards in my hand"
+    },
+    {
+      "who": "Ben",
+      "say": "ha"
+    },
+    {
+      "who": "Dev",
+      "say": "ok I'm moving the robber onto Chloe's wheat field"
+    },
+    {
+      "who": "Chloe",
+      "say": "seriously again",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "When a 7 is rolled, every player holding more than 7 resource cards discards half of them, rounded down, before the robber moves (Ana with 9 discards 4)."
+      }
+    },
+    {
+      "who": "Dev",
+      "say": "and I steal one card from you Chloe"
+    },
+    {
+      "who": "Chloe",
+      "say": "fine take it"
+    },
+    {
+      "who": "Dev",
+      "say": "then I'll build a road",
+      "pause": 2
+    }
+  ]
+}

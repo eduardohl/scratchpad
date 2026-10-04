@@ -26,6 +26,11 @@ export const GameBriefSchema = z.object({
     .array(z.object({ id: z.string(), name: z.string(), howTo: z.string() }))
     .describe("Final scoring categories as they'd appear on a score pad, with tie-breaker last. ids like c1."),
   commonMistakes: z.array(z.string()).describe("Rules new players most often get wrong."),
+  watchWords: z
+    .array(z.string())
+    .describe(
+      "8-20 short lower-case words or phrases players say aloud right when this game's rules are most often misapplied (e.g. for Catan: robber, seven, bank, harbor, settlement). Used to decide when to listen closely.",
+    ),
 });
 
 export const ListenResultSchema = z.object({

@@ -1,0 +1,49 @@
+{
+  "id": "catan-distance-rule",
+  "game": "Catan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "Ana builds a settlement adjacent to Ben's settlement, breaking the distance rule.",
+  "lines": [
+    {
+      "who": "Ana",
+      "say": "ok I have brick lumber wool and wheat so I'm building a settlement"
+    },
+    {
+      "who": "Ana",
+      "say": "I'll put it on this corner right next to your settlement Ben"
+    },
+    {
+      "who": "Ben",
+      "say": "the corner that's touching mine just one road away"
+    },
+    {
+      "who": "Ana",
+      "say": "yep right there it's the best spot",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "Distance rule: a settlement can't be built on an intersection adjacent to another settlement; there must be at least two road lengths between settlements."
+      }
+    },
+    {
+      "who": "Ben",
+      "say": "huh ok"
+    },
+    {
+      "who": "Ana",
+      "say": "and that's my turn"
+    },
+    {
+      "who": "Chloe",
+      "say": "my turn",
+      "pause": 3
+    }
+  ]
+}

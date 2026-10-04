@@ -1,0 +1,49 @@
+{
+  "id": "ttr-resolved-quiet",
+  "game": "Ticket to Ride",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "The table resolves a draw question correctly and handles the end trigger correctly. Stay quiet (a phase pointer is fine).",
+  "lines": [
+    {
+      "who": "Chloe",
+      "say": "can I take a face up locomotive as my second card"
+    },
+    {
+      "who": "Ana",
+      "say": "no if you take a face up loco it's your whole draw and it can't be your second card"
+    },
+    {
+      "who": "Chloe",
+      "say": "got it then I'll take two from the deck"
+    },
+    {
+      "who": "Ben",
+      "say": "I'm down to two trains"
+    },
+    {
+      "who": "Ana",
+      "say": "so everyone including you gets one more turn and then we count",
+      "expect": {
+        "type": "ok",
+        "category": "phase",
+        "fact": "The last round has started: each player, including Ben, takes one final turn, then final scoring."
+      }
+    },
+    {
+      "who": "Chloe",
+      "say": "ok last turn for me"
+    },
+    {
+      "who": "Chloe",
+      "say": "I'll claim this route",
+      "pause": 3
+    }
+  ]
+}

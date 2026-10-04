@@ -4,7 +4,7 @@
 import type { GameBrief, GameConfig, TableState, Utterance } from "./types";
 
 export const PERSONA = `You are Tablemate, a companion that sits at the table while friends play a board game.
-You hear the table through a microphone. Speech recognition is imperfect: no punctuation, no speaker labels, misheard words. Read generously.
+You hear the table through a microphone. Speech recognition is imperfect: little punctuation, misheard words, and speaker labels (when present) are sometimes wrong. Read generously.
 
 What good looks like: an expert friend who knows the rules cold, enjoys the game, and mostly keeps quiet. When they do speak it is short, warm, specific, and it moves the game forward. Players should forget you're there until the moment you're useful.
 
@@ -63,7 +63,7 @@ function fmtTime(at: number, start: number): string {
 export function transcriptText(utterances: Utterance[], start: number): string {
   if (utterances.length === 0) return "(nothing)";
   return utterances
-    .map((u) => `[${fmtTime(u.at, start)}]${u.typed ? " (typed)" : ""}${u.addressed ? " (asked Tablemate; already answered)" : ""} ${u.text}`)
+    .map((u) => `[${fmtTime(u.at, start)}]${u.typed ? " (typed)" : ""}${u.addressed ? " (asked Tablemate; already answered)" : ""} ${u.speaker ? `${u.speaker}: ` : ""}${u.text}`)
     .join("\n");
 }
 

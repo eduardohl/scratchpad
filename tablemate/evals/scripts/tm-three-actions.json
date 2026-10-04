@@ -1,0 +1,45 @@
+{
+  "id": "tm-three-actions",
+  "game": "Terraforming Mars",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "A player takes a third action on one turn. Turns are one or two actions.",
+  "lines": [
+    {
+      "who": "Ana",
+      "say": "ok my turn I'll play this card for twelve megacredits"
+    },
+    {
+      "who": "Ana",
+      "say": "then I'll do the power plant standard project"
+    },
+    {
+      "who": "Ana",
+      "say": "and then I'll also fund the banker award",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "On a turn you take one or two actions, then play passes; the third action has to wait for your next turn this generation."
+      }
+    },
+    {
+      "who": "Ben",
+      "say": "ugh fine"
+    },
+    {
+      "who": "Ana",
+      "say": "ok done"
+    },
+    {
+      "who": "Ben",
+      "say": "my turn",
+      "pause": 3
+    }
+  ]
+}

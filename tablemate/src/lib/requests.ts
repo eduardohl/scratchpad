@@ -12,6 +12,7 @@ const Utterance = z.object({
   at: z.number(),
   typed: z.boolean().optional(),
   addressed: z.boolean().optional(),
+  speaker: z.string().max(40).optional(),
 });
 
 const Rulebook = z.discriminatedUnion("kind", [
@@ -19,6 +20,9 @@ const Rulebook = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("file"), fileId: z.string().max(200), name: z.string().max(200) }),
   z.object({ kind: z.literal("text"), text: z.string().max(400_000), name: z.string().max(200) }),
 ]);
+
+// Playbooks saved before watchWords existed are still valid.
+const BriefSchema = GameBriefSchema.extend({ watchWords: z.array(z.string().max(60)).max(40).optional() });
 
 export const GameConfigSchema = z.object({
   gameName: z.string().trim().min(1).max(120),
@@ -38,7 +42,7 @@ const TableStateSchema = z.object({
 
 export const ListenRequestSchema = z.object({
   config: GameConfigSchema,
-  brief: GameBriefSchema,
+  brief: BriefSchema,
   state: TableStateSchema,
   presence: z.enum(["quiet", "balanced", "guide"]),
   earlier: z.array(Utterance).max(60),
@@ -49,7 +53,7 @@ export const ListenRequestSchema = z.object({
 
 export const AskRequestSchema = z.object({
   config: GameConfigSchema,
-  brief: GameBriefSchema,
+  brief: BriefSchema,
   state: TableStateSchema,
   mode: z.enum(["question", "recap"]),
   question: z.string().max(1000),

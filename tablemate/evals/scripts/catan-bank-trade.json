@@ -1,0 +1,65 @@
+{
+  "id": "catan-bank-trade",
+  "game": "Catan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "Ben trades 2:1 with the bank without owning a harbor. Should correct.",
+  "lines": [
+    {
+      "who": "Chloe",
+      "say": "ok I rolled a six who gets stuff"
+    },
+    {
+      "who": "Ana",
+      "say": "I get a brick"
+    },
+    {
+      "who": "Ben",
+      "say": "nothing for me again this game hates me"
+    },
+    {
+      "who": "Chloe",
+      "say": "your turn Ben"
+    },
+    {
+      "who": "Ben",
+      "say": "alright I rolled an eight I get one wheat so now I have four wheat"
+    },
+    {
+      "who": "Ben",
+      "say": "I'm not on any harbor yet so I'll just do bank trades"
+    },
+    {
+      "who": "Ben",
+      "say": "I'll give the bank two wheat for one ore",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "Without a harbor, trades with the bank are 4:1 (four of the same resource for one); 3:1 and 2:1 rates need a matching harbor."
+      }
+    },
+    {
+      "who": "Chloe",
+      "say": "sure here's your ore"
+    },
+    {
+      "who": "Ben",
+      "say": "and then I'll build a city with that"
+    },
+    {
+      "who": "Ana",
+      "say": "nice"
+    },
+    {
+      "who": "Ana",
+      "say": "ok my turn",
+      "pause": 3
+    }
+  ]
+}

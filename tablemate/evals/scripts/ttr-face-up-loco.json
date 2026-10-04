@@ -1,0 +1,42 @@
+{
+  "id": "ttr-face-up-loco",
+  "game": "Ticket to Ride",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe",
+    "Dev"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "A player takes a face-up locomotive plus another card. A face-up loco is the whole draw.",
+  "lines": [
+    {
+      "who": "Dev",
+      "say": "I'll draw cards"
+    },
+    {
+      "who": "Dev",
+      "say": "I'll take the face up locomotive"
+    },
+    {
+      "who": "Dev",
+      "say": "and the blue one next to it",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "Taking a face-up locomotive counts as your whole draw: you take only that one card this turn."
+      }
+    },
+    {
+      "who": "Ana",
+      "say": "ok"
+    },
+    {
+      "who": "Ana",
+      "say": "my turn I'll claim Denver to Omaha",
+      "pause": 3
+    }
+  ]
+}

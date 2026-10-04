@@ -1,0 +1,52 @@
+{
+  "id": "catan-resolved-debate",
+  "game": "Catan",
+  "players": [
+    "Ana",
+    "Ben",
+    "Chloe"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "phase": "play",
+  "notes": "Two rules questions that the table answers correctly on its own. Tablemate should stay silent.",
+  "lines": [
+    {
+      "who": "Chloe",
+      "say": "wait can I build before I roll"
+    },
+    {
+      "who": "Ben",
+      "say": "no you roll first then trade and build"
+    },
+    {
+      "who": "Chloe",
+      "say": "oh right ok rolling an eleven"
+    },
+    {
+      "who": "Ana",
+      "say": "nobody has eleven"
+    },
+    {
+      "who": "Ana",
+      "say": "can I trade with Ben on Chloe's turn"
+    },
+    {
+      "who": "Chloe",
+      "say": "no you can only trade with whoever's turn it is so with me"
+    },
+    {
+      "who": "Ana",
+      "say": "fair ok then Chloe want a wheat for an ore"
+    },
+    {
+      "who": "Chloe",
+      "say": "sure"
+    },
+    {
+      "who": "Chloe",
+      "say": "I'll end my turn",
+      "pause": 3
+    }
+  ]
+}
