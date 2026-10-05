@@ -1,0 +1,56 @@
+{
+  "id": "br-ttr-loco",
+  "game": "Ticket to Ride",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR, 5 players. Lu takes a face-up locomotive and then a second card.",
+  "lines": [
+    {
+      "who": "Lu",
+      "say": "vou comprar carta"
+    },
+    {
+      "who": "Lu",
+      "say": "pego essa locomotiva aberta aqui"
+    },
+    {
+      "who": "Lu",
+      "say": "e a azul do lado",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "A face-up locomotive counts as your whole draw: if you take one from the face-up row, that's your only card this turn."
+      }
+    },
+    {
+      "who": "Gui",
+      "say": "beleza"
+    },
+    {
+      "who": "Edu",
+      "say": "bora gente tá demorando demais"
+    },
+    {
+      "who": "Bia",
+      "say": "quem tá construindo pra Miami hein"
+    },
+    {
+      "who": "Rafa",
+      "say": "ninguém só eu e meu sonho"
+    },
+    {
+      "who": "Edu",
+      "say": "minha vez vou fazer Denver Omaha",
+      "pause": 3
+    }
+  ]
+}

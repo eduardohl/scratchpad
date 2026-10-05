@@ -60,12 +60,98 @@ const RULE_QUESTION_CUES = [
   "you can't",
   "you're not allowed",
   "that's not how",
+  // Brazilian Portuguese. Written without accents: matching folds accents away.
+  "como funciona",
+  "como que funciona",
+  "como e que",
+  "como faz",
+  "quantas",
+  "quantos",
+  "o que acontece",
+  "e se eu",
+  "posso",
+  "da pra",
+  "da para",
+  "pode isso",
+  "isso pode",
+  "isso vale",
+  "vale isso",
+  "pode fazer",
+  "pode usar",
+  "pode pegar",
+  "e permitido",
+  "nao pode",
+  "nao vale",
+  "qual a regra",
+  "qual e a regra",
+  "a regra",
+  "regra diz",
+  "manual",
+  "livro de regras",
+  "nao lembro",
+  "nao me lembro",
+  "esqueci",
+  "nao sei se",
+  "nao tenho certeza",
+  "tem certeza",
+  "pera ai",
+  "perai",
+  "espera ai",
+  "calma ai",
+  "onde vai",
+  "onde fica",
+  "vez de quem",
+  "de quem e a vez",
+  "quem comeca",
+  "quem joga",
+  "achei que",
+  "acho que nao",
+  "ta errado",
+  "nao e assim",
+  "olha no manual",
+  "joga no google",
 ];
 
 const PHASE_CUES: Record<Phase, string[]> = {
-  setup: ["set up", "setup", "set it up", "shuffle", "deal", "each player gets", "starting hand"],
-  teach: ["explain", "teach", "how do you play", "how to play", "the goal is", "how do you win"],
+  setup: [
+    "set up",
+    "setup",
+    "set it up",
+    "shuffle",
+    "deal",
+    "each player gets",
+    "starting hand",
+    "montar",
+    "monta o jogo",
+    "embaralha",
+    "distribui",
+    "cada um pega",
+    "mao inicial",
+  ],
+  teach: [
+    "explain",
+    "teach",
+    "how do you play",
+    "how to play",
+    "the goal is",
+    "how do you win",
+    "explica",
+    "explicar",
+    "como joga",
+    "como se joga",
+    "o objetivo",
+    "como ganha",
+  ],
   play: [
+    "bora jogar",
+    "vamos jogar",
+    "bora comecar",
+    "vamos comecar",
+    "primeiro jogador",
+    "sua vez",
+    "minha vez",
+    "proxima rodada",
+    "nova rodada",
     "let's start",
     "let's play",
     "let's go",
@@ -90,11 +176,24 @@ const PHASE_CUES: Record<Phase, string[]> = {
     "final score",
     "who won",
     "scoring",
+    "acabou o jogo",
+    "fim de jogo",
+    "fim do jogo",
+    "ultima rodada",
+    "ultimo turno",
+    "contar os pontos",
+    "conta os pontos",
+    "contagem",
+    "pontuacao final",
+    "quem ganhou",
+    "placar",
   ],
 };
 
-function normalize(text: string): string {
-  return ` ${text.toLowerCase().replace(/[^\p{L}\p{N}' ]+/gu, " ").replace(/\s+/g, " ").trim()} `;
+/** Lower-case, accents folded (não → nao), punctuation dropped, padded with spaces for phrase matching. */
+export function normalize(text: string): string {
+  const folded = text.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  return ` ${folded.replace(/[^\p{L}\p{N}' ]+/gu, " ").replace(/\s+/g, " ").trim()} `;
 }
 
 function containsPhrase(normalized: string, phrase: string): boolean {
@@ -111,7 +210,7 @@ export interface WakeMatch {
 export function detectWake(text: string, wakeWords: string[]): WakeMatch {
   const n = normalize(text);
   for (const w of wakeWords) {
-    const word = w.toLowerCase().trim();
+    const word = normalize(w).trim();
     if (!word) continue;
     const idx = n.indexOf(` ${word} `);
     if (idx === -1) continue;
@@ -119,7 +218,7 @@ export function detectWake(text: string, wakeWords: string[]): WakeMatch {
     const after = n.slice(idx + word.length + 2).trim();
     // "hey tablemate X" / "tablemate X" / "X, tablemate?" all count. Mentions in the
     // middle of a long sentence ("I read about tablemate apps") do not.
-    const leading = before === "" || /^(hey|ok|okay|hi|yo|so|um|uh)$/.test(before);
+    const leading = before === "" || /^(hey|ok|okay|hi|yo|so|um|uh|ei|oi|o|ow|ai|e ai|fala|tipo|ne)$/.test(before);
     const trailing = after === "" && before.split(" ").length <= 14;
     if (leading || trailing) {
       return { addressed: true, rest: (leading ? after : before).trim() };
@@ -129,7 +228,20 @@ export function detectWake(text: string, wakeWords: string[]): WakeMatch {
 }
 
 /** Round/turn transitions, in any game: "round two", "that's the round", "everyone passed". */
-const ROUND_TRANSITION = /\b(round (one|two|three|four|five|six|seven|eight|nine|ten|\d+)|round('s| is)? (done|over)|end of (the )?round|everyone('s| is)? (out|passed|done))\b/;
+// Matched against normalize() output, which pads words with spaces: anchor to whole words.
+const ROUND_TRANSITION = new RegExp(
+  `(?<= )(?:${[
+    "round (one|two|three|four|five|six|seven|eight|nine|ten|\\d+)",
+    "round('s| is)? (done|over)",
+    "end of (the )?round",
+    "everyone('s| is)? (out|passed|done)",
+    // pt-BR (accents already folded)
+    "rodada (um|uma|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|\\d+)",
+    "(primeira|segunda|terceira|quarta|quinta|sexta|setima|oitava|ultima|proxima|nova) rodada",
+    "(acabou|fim d[ae]|final d[ae]) (a |o )?(rodada|round|geracao|era)",
+    "(todo mundo|geral|todos) (passou|passaram)",
+  ].join("|")})(?= )`,
+);
 
 export type Cue = "rule-question" | "phase-change" | "game-moment";
 

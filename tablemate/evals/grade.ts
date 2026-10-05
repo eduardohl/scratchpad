@@ -32,7 +32,7 @@ export function claudeGrader(client = new Anthropic()): Grader {
       max_tokens: 2000,
       output_config: { effort: "medium", format: betaZodOutputFormat(GradeSchema) },
       system:
-        "You grade a board game assistant. It listens to a table and occasionally interjects. Judge its interjection strictly on substance. You know the rules of popular board games well; if a rules excerpt is provided, it is authoritative.",
+        "You grade a board game assistant. It listens to a table and occasionally interjects. Judge its interjection strictly on substance, across languages: the table may speak Brazilian Portuguese mixed with English, and the expected fact may be written in English. You know the rules of popular board games well; if a rules excerpt is provided, it is authoritative.",
       messages: [
         {
           role: "user",

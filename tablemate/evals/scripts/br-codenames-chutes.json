@@ -1,0 +1,67 @@
+{
+  "id": "br-codenames-chutes",
+  "game": "Codenames",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu",
+    "Thiago",
+    "Nanda",
+    "Pedro"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR, 8 players. After a clue for 2, the guessers try a fourth guess. Max is number + 1.",
+  "lines": [
+    {
+      "who": "Pedro",
+      "say": "banana dois"
+    },
+    {
+      "who": "Nanda",
+      "say": "banana dois hmm macaco com certeza"
+    },
+    {
+      "who": "Lu",
+      "say": "e amarelo"
+    },
+    {
+      "who": "Pedro",
+      "say": "isso"
+    },
+    {
+      "who": "Nanda",
+      "say": "vamos mais um vai praia"
+    },
+    {
+      "who": "Pedro",
+      "say": "boa"
+    },
+    {
+      "who": "Lu",
+      "say": "bora mais um chute vai sorvete",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "With a clue for 2 the team may make at most 3 guesses (the number plus one); a fourth guess isn't allowed."
+      }
+    },
+    {
+      "who": "Thiago",
+      "say": "pô vocês tão roubando"
+    },
+    {
+      "who": "Gui",
+      "say": "calma deixa eles"
+    },
+    {
+      "who": "Rafa",
+      "say": "alguém pega mais gelo",
+      "pause": 3
+    }
+  ]
+}

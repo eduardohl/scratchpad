@@ -21,6 +21,9 @@ describe("detectWake", () => {
   it("ignores passing mentions mid-sentence", () => {
     expect(detectWake("I was reading about tablemate and other apps last week", WAKE).addressed).toBe(false);
   });
+  it("hears a Brazilian hey", () => {
+    expect(detectWake("ei tablemate posso trocar duas vezes", WAKE)).toEqual({ addressed: true, rest: "posso trocar duas vezes" });
+  });
   it("ignores unrelated speech", () => {
     expect(detectWake("pass me the dice", WAKE).addressed).toBe(false);
   });
@@ -43,6 +46,23 @@ describe("detectCues", () => {
     expect(detectCues("ok round two everyone has seven cubes")).toContain("phase-change");
     expect(detectCues("everyone passed so production")).toContain("phase-change");
     expect(detectCues("the round is over")).toContain("phase-change");
+  });
+  it("understands Brazilian Portuguese, with or without accents", () => {
+    expect(detectCues("pera aí pode isso")).toContain("rule-question");
+    expect(detectCues("eu não lembro se pode")).toContain("rule-question");
+    expect(detectCues("eu nao lembro se pode")).toContain("rule-question");
+    expect(detectCues("de quem é a vez")).toContain("rule-question");
+    expect(detectCues("beleza última rodada galera")).toContain("phase-change");
+    expect(detectCues("acabou a geração todo mundo passou")).toContain("phase-change");
+    expect(detectCues("rodada três")).toContain("phase-change");
+  });
+  it("ignores Portuguese banter", () => {
+    expect(detectCues("porra que sorte do caralho")).toEqual([]);
+    expect(detectCues("alguém quer mais cerveja")).toEqual([]);
+    expect(detectCues("o flamengo jogou muito ontem")).toEqual([]);
+  });
+  it("needs whole words for round transitions", () => {
+    expect(detectCues("walk around one more time")).toEqual([]);
   });
   it("uses the game's watch words", () => {
     expect(detectCues("seven robber time", ["robber", "bank"])).toContain("game-moment");

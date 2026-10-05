@@ -1,0 +1,54 @@
+{
+  "id": "br-resistance-missao4",
+  "game": "The Resistance",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu",
+    "Thiago",
+    "Nanda"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR, 7 players. Mission 4 gets one fail card and the table calls it failed. With 7+ players mission 4 needs two fails.",
+  "lines": [
+    {
+      "who": "Nanda",
+      "say": "missão quatro embaralha as cartas"
+    },
+    {
+      "who": "Thiago",
+      "say": "sucesso sucesso sucesso falha"
+    },
+    {
+      "who": "Gui",
+      "say": "falhou a missão os espiões ganharam essa",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "With 7 or more players, the fourth mission only fails with at least two fail cards; one fail means it succeeds."
+      }
+    },
+    {
+      "who": "Pedro",
+      "say": "eu sabia que era você Rafa"
+    },
+    {
+      "who": "Rafa",
+      "say": "eu juro que não fui eu"
+    },
+    {
+      "who": "Lu",
+      "say": "mentiroso"
+    },
+    {
+      "who": "Nanda",
+      "say": "bora pra missão cinco",
+      "pause": 3
+    }
+  ]
+}

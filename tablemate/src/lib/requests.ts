@@ -29,6 +29,7 @@ export const GameConfigSchema = z.object({
   players: z.array(z.string().trim().min(1).max(40)).min(1).max(12),
   experience: z.enum(["new", "mixed", "experienced"]),
   rulebook: Rulebook,
+  language: z.enum(["pt-BR", "en"]).optional(),
 });
 
 const TableStateSchema = z.object({

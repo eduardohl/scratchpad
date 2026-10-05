@@ -1,0 +1,53 @@
+{
+  "id": "br-dixit-pontos",
+  "game": "Dixit",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu",
+    "Thiago"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. Everyone found the storyteller's card, but the table gives the storyteller 3 points.",
+  "lines": [
+    {
+      "who": "Bia",
+      "say": "beleza revelando todo mundo votou na carta do Edu"
+    },
+    {
+      "who": "Thiago",
+      "say": "era óbvio demais mano"
+    },
+    {
+      "who": "Edu",
+      "say": "então ganho três pontos",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "If everyone (or no one) finds the storyteller's card, the storyteller scores 0 and every other player scores 2."
+      }
+    },
+    {
+      "who": "Lu",
+      "say": "é justo"
+    },
+    {
+      "who": "Gui",
+      "say": "próximo narrador sou eu"
+    },
+    {
+      "who": "Rafa",
+      "say": "essa carta do peixe voando é muito estranha"
+    },
+    {
+      "who": "Gui",
+      "say": "é a minha preferida",
+      "pause": 3
+    }
+  ]
+}

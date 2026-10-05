@@ -28,6 +28,8 @@ const Line = z.object({
   say: z.string().min(1),
   /** Silence before this line starts, in seconds (default 1.5). */
   pause: z.number().nonnegative().optional(),
+  /** Crosstalk: start this many seconds before the previous line ends (overrides pause). */
+  overlap: z.number().positive().optional(),
   expect: Expectation.optional(),
 });
 
@@ -37,11 +39,15 @@ export const ScriptSchema = z.object({
   players: z.array(z.string()).min(1),
   experience: z.enum(["new", "mixed", "experienced"]),
   presence: z.enum(["quiet", "balanced", "guide"]),
+  /** Table language (default English). */
+  language: z.enum(["pt-BR", "en"]).optional(),
   phase: z.enum(PHASES),
   /** What this script tests, for humans reading results. */
   notes: z.string(),
   /** Optional rules text supplied as the "rulebook" for this script. */
   rulebook: z.string().optional(),
+  /** Vocabulary worth checking in transcripts (e.g. English game terms in a pt-BR game). */
+  terms: z.array(z.string()).optional(),
   lines: z.array(Line).min(1),
 });
 export type Script = z.infer<typeof ScriptSchema>;
@@ -73,7 +79,7 @@ export function timeline(script: Script): { lines: TimedLine[]; expectations: Ti
   const lines: TimedLine[] = [];
   const expectations: TimedExpectation[] = [];
   script.lines.forEach((l, index) => {
-    const start = t + (index === 0 ? 0.5 : (l.pause ?? DEFAULT_PAUSE));
+    const start = index === 0 ? 0.5 : l.overlap ? Math.max(0, t - l.overlap) : t + (l.pause ?? DEFAULT_PAUSE);
     const words = l.say.trim().split(/\s+/).length;
     const end = start + Math.max(0.8, words * SECONDS_PER_WORD);
     lines.push({ index, who: l.who, text: l.say, start, end });
@@ -86,7 +92,7 @@ export function timeline(script: Script): { lines: TimedLine[]; expectations: Ti
         until: end + (l.expect.window ?? DEFAULT_WINDOW),
       });
     }
-    t = end;
+    t = Math.max(t, end);
   });
   return { lines, expectations, duration: t };
 }

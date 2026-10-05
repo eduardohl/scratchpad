@@ -1,0 +1,64 @@
+{
+  "id": "br-azul-centro",
+  "game": "Azul",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. First pick from the center this round, without taking the first-player marker.",
+  "rulebook": "OFERTA DAS FÁBRICAS (trecho, parafraseado): Na sua vez, pegue todos os azulejos de uma cor de uma fábrica (o resto vai para o centro) ou todos de uma cor do centro. O primeiro jogador a pegar do centro na rodada também pega o marcador de primeiro jogador e o coloca no primeiro espaço livre da sua linha de chão.",
+  "lines": [
+    {
+      "who": "Bia",
+      "say": "pego os dois amarelos dessa fábrica"
+    },
+    {
+      "who": "Gui",
+      "say": "vou de preto aqui"
+    },
+    {
+      "who": "Edu",
+      "say": "pego os vermelhos o resto vai pro meio"
+    },
+    {
+      "who": "Rafa",
+      "say": "ninguém mexeu no meio ainda né"
+    },
+    {
+      "who": "Rafa",
+      "say": "então pego os três azul do meio",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "The first player to take from the center also takes the first-player marker: it goes on their floor line (minus 1 point) and they start next round."
+      }
+    },
+    {
+      "who": "Bia",
+      "say": "tá"
+    },
+    {
+      "who": "Gui",
+      "say": "que música é essa Edu"
+    },
+    {
+      "who": "Edu",
+      "say": "é o novo do Baco"
+    },
+    {
+      "who": "Gui",
+      "say": "muito bom"
+    },
+    {
+      "who": "Bia",
+      "say": "minha vez de novo",
+      "pause": 3
+    }
+  ]
+}

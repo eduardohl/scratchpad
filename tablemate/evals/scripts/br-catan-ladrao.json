@@ -1,0 +1,75 @@
+{
+  "id": "br-catan-ladrao",
+  "game": "Catan",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR, noisy. A 7 is rolled; Gui has 10 cards and nobody discards before the robber moves.",
+  "lines": [
+    {
+      "who": "Rafa",
+      "say": "porra alguém me passa o dado"
+    },
+    {
+      "who": "Bia",
+      "say": "toma aí e para de reclamar"
+    },
+    {
+      "who": "Rafa",
+      "say": "sete caralho robber time"
+    },
+    {
+      "who": "Gui",
+      "say": "ah não mano eu tô com dez cartas na mão"
+    },
+    {
+      "who": "Edu",
+      "say": "kkkkkk se fodeu"
+    },
+    {
+      "who": "Bia",
+      "say": "quem mandou ficar segurando carta"
+    },
+    {
+      "who": "Rafa",
+      "say": "vou botar o ladrão no trigo da Bia"
+    },
+    {
+      "who": "Bia",
+      "say": "de novo velho você tem algum problema comigo",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "On a 7, everyone holding more than 7 resource cards discards half (rounded down) before the robber moves: Gui, with 10, discards 5."
+      }
+    },
+    {
+      "who": "Rafa",
+      "say": "nada pessoal é business"
+    },
+    {
+      "who": "Rafa",
+      "say": "e roubo uma carta sua"
+    },
+    {
+      "who": "Edu",
+      "say": "alguém viu o jogo do Flamengo ontem"
+    },
+    {
+      "who": "Gui",
+      "say": "nem me fala daquele pênalti"
+    },
+    {
+      "who": "Rafa",
+      "say": "beleza vou fazer uma estrada e passo",
+      "pause": 3
+    }
+  ]
+}

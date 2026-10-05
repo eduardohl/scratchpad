@@ -132,10 +132,11 @@ export function useSpeech({ onFinal, lang = "en-US", mutedRef }: SpeechOptions) 
 }
 
 /** Speak text aloud; resolves when finished. */
-export function speak(text: string): Promise<void> {
+export function speak(text: string, lang = "en-US"): Promise<void> {
   return new Promise((resolve) => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return resolve();
     const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
     u.rate = 1.05;
     u.onend = () => resolve();
     u.onerror = () => resolve();

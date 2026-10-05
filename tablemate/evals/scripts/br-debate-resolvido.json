@@ -1,0 +1,54 @@
+{
+  "id": "br-debate-resolvido",
+  "game": "Catan",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. Rules questions the table answers correctly themselves. Tablemate should stay silent.",
+  "lines": [
+    {
+      "who": "Bia",
+      "say": "pera aí posso construir antes de jogar o dado"
+    },
+    {
+      "who": "Gui",
+      "say": "não primeiro rola o dado depois troca e constrói"
+    },
+    {
+      "who": "Bia",
+      "say": "ah verdade rolei um onze"
+    },
+    {
+      "who": "Edu",
+      "say": "ninguém tem onze que azar"
+    },
+    {
+      "who": "Rafa",
+      "say": "posso trocar com o Edu na vez da Bia"
+    },
+    {
+      "who": "Bia",
+      "say": "não só pode trocar com quem tá jogando então comigo"
+    },
+    {
+      "who": "Rafa",
+      "say": "justo Bia te dou um trigo por um minério"
+    },
+    {
+      "who": "Bia",
+      "say": "fechado"
+    },
+    {
+      "who": "Bia",
+      "say": "passo a vez",
+      "pause": 3
+    }
+  ]
+}

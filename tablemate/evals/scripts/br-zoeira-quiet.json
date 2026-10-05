@@ -1,0 +1,88 @@
+{
+  "id": "br-zoeira-quiet",
+  "game": "Ticket to Ride",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR, pure noise: trash talk, football, food, legal play. Tablemate should stay silent.",
+  "lines": [
+    {
+      "who": "Edu",
+      "say": "porra Rafa você bloqueou minha rota de propósito"
+    },
+    {
+      "who": "Rafa",
+      "say": "jamais eu nem vi sua rota"
+    },
+    {
+      "who": "Bia",
+      "say": "mentira ele tava olhando seu bilhete"
+    },
+    {
+      "who": "Gui",
+      "say": "alguém viu o golaço do Vini ontem"
+    },
+    {
+      "who": "Lu",
+      "say": "que golaço que nada aquilo foi sorte"
+    },
+    {
+      "who": "Gui",
+      "say": "sorte é o caralho"
+    },
+    {
+      "who": "Edu",
+      "say": "vou comprar duas cartas do monte"
+    },
+    {
+      "who": "Bia",
+      "say": "minha vez vou fazer Chicago Pittsburgh com quatro pretas"
+    },
+    {
+      "who": "Rafa",
+      "say": "quanto custa o hambúrguer daquele lugar novo"
+    },
+    {
+      "who": "Lu",
+      "say": "uns quarenta conto"
+    },
+    {
+      "who": "Rafa",
+      "say": "tá maluco"
+    },
+    {
+      "who": "Gui",
+      "say": "vou pegar bilhete de destino"
+    },
+    {
+      "who": "Gui",
+      "say": "fico com os dois"
+    },
+    {
+      "who": "Edu",
+      "say": "quem tá ganhando"
+    },
+    {
+      "who": "Bia",
+      "say": "sei lá todo mundo empatado",
+      "pause": 3
+    },
+    {
+      "who": "Lu",
+      "say": "vou fazer Nova York Washington com duas laranjas"
+    },
+    {
+      "who": "Rafa",
+      "say": "boa",
+      "pause": 2
+    }
+  ]
+}

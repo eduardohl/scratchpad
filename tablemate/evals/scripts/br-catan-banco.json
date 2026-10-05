@@ -1,0 +1,67 @@
+{
+  "id": "br-catan-banco",
+  "game": "Catan",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. Edu trades 3:1 with the bank without owning any harbor.",
+  "lines": [
+    {
+      "who": "Edu",
+      "say": "minha vez rolei um oito"
+    },
+    {
+      "who": "Bia",
+      "say": "oito é meu ganhei duas ovelha"
+    },
+    {
+      "who": "Gui",
+      "say": "essa ilha só tem ovelha meu deus"
+    },
+    {
+      "who": "Edu",
+      "say": "eu não tenho porto nenhum ainda né"
+    },
+    {
+      "who": "Edu",
+      "say": "então vou trocar três trigo por um minério com o banco",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "Without a harbor, bank trades are 4:1 (four of the same resource for one); 3:1 and 2:1 need a matching harbor."
+      }
+    },
+    {
+      "who": "Rafa",
+      "say": "pode pegar aí"
+    },
+    {
+      "who": "Edu",
+      "say": "e faço uma cidade com isso"
+    },
+    {
+      "who": "Gui",
+      "say": "nossa o cara tá voando"
+    },
+    {
+      "who": "Bia",
+      "say": "alguém pede uma pizza pelo amor de deus"
+    },
+    {
+      "who": "Rafa",
+      "say": "calabresa ou portuguesa"
+    },
+    {
+      "who": "Edu",
+      "say": "meia meia",
+      "pause": 3
+    }
+  ]
+}

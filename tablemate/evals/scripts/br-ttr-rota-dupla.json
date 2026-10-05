@@ -1,0 +1,56 @@
+{
+  "id": "br-ttr-rota-dupla",
+  "game": "Ticket to Ride",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR, 5 players. Rafa claims the second track of a double route he already owns. In 4-5 player games both tracks are open, but never to the same player.",
+  "lines": [
+    {
+      "who": "Rafa",
+      "say": "vou fazer a outra linha de Kansas City pra Saint Louis"
+    },
+    {
+      "who": "Bia",
+      "say": "mas a primeira já é sua"
+    },
+    {
+      "who": "Rafa",
+      "say": "é aí eu fico com as duas e ninguém passa",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "In a 4-5 player game both tracks of a double route can be used, but not by the same player: Rafa can't claim the second one."
+      }
+    },
+    {
+      "who": "Gui",
+      "say": "que maldade"
+    },
+    {
+      "who": "Lu",
+      "say": "isso é muito anti jogo"
+    },
+    {
+      "who": "Rafa",
+      "say": "jogo é jogo"
+    },
+    {
+      "who": "Edu",
+      "say": "quem quer cerveja"
+    },
+    {
+      "who": "Gui",
+      "say": "eu quero e a Lu também",
+      "pause": 3
+    }
+  ]
+}

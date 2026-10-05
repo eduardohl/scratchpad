@@ -59,7 +59,7 @@ export async function simulate(script: Script, brief: GameBrief, listener: Liste
     : { kind: "none" };
 
   let s: Session = newSession(
-    { gameName: script.game, players: script.players, experience: script.experience, rulebook },
+    { gameName: script.game, players: script.players, experience: script.experience, rulebook, language: script.language },
     brief,
     { presence: script.presence, voice: true, wakeWords: WAKE_WORDS },
     { startedAt: EPOCH },

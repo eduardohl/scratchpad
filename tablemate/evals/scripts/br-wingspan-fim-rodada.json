@@ -1,0 +1,60 @@
+{
+  "id": "br-wingspan-fim-rodada",
+  "game": "Wingspan",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. Round 1 ends; they skip the end-of-round steps and start round 2.",
+  "lines": [
+    {
+      "who": "Thiago",
+      "say": "boto ovo e acabou meus cubos"
+    },
+    {
+      "who": "Bia",
+      "say": "eu também acabei"
+    },
+    {
+      "who": "Edu",
+      "say": "fim da primeira rodada então"
+    },
+    {
+      "who": "Lu",
+      "say": "bora rodada dois todo mundo com sete cubos",
+      "expect": {
+        "type": "speak",
+        "category": "skipped-step",
+        "fact": "End of round: score the round's goal on the goal board (place an action cube there), discard and refill the bird tray, and pass the first-player token."
+      }
+    },
+    {
+      "who": "Thiago",
+      "say": "eu começo"
+    },
+    {
+      "who": "Rafa",
+      "say": "ninguém mexe na minha cerveja"
+    },
+    {
+      "who": "Thiago",
+      "say": "vou jogar esse pássaro na floresta"
+    },
+    {
+      "who": "Edu",
+      "say": "que pássaro feio mano"
+    },
+    {
+      "who": "Thiago",
+      "say": "é um urubu respeita",
+      "pause": 3
+    }
+  ]
+}

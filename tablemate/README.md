@@ -73,7 +73,11 @@ npm run dev                  # http://localhost:3000
 npm test                     # etiquette + eval-scoring unit tests
 npm run eval                 # free dry run of the eval suite (see evals/README.md)
 npm run eval -- --yes        # live eval run against Claude
+npm run gamenight            # synthesize a noisy pt-BR game night (ElevenLabs)
+npm run bakeoff              # compare speech-to-text providers on it
 ```
+
+Keys (set as environment variables, never in code): `ANTHROPIC_API_KEY` (app and evals), `ELEVENLABS_API_KEY` (synthetic game night, and later Tablemate's voice), `ASSEMBLYAI_API_KEY` and/or `SONIOX_API_KEY` (bake-off).
 
 The roadmap and milestone status are in [PLAN.md](PLAN.md).
 

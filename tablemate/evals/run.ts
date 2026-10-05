@@ -46,6 +46,7 @@ function configFor(script: Script): GameConfig {
     gameName: script.game,
     players: script.players,
     experience: script.experience,
+    language: script.language,
     rulebook: script.rulebook ? { kind: "text", text: script.rulebook, name: `${script.game} rules (excerpt)` } : { kind: "none" },
   };
 }

@@ -3,7 +3,16 @@ import "server-only";
 
 import Anthropic from "@anthropic-ai/sdk";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
-import { ASK_SYSTEM, LISTEN_SYSTEM, PREPARE_SYSTEM, RECAP_SYSTEM, playbookText, stateText, transcriptText } from "./prompts";
+import {
+  ASK_SYSTEM,
+  LISTEN_SYSTEM,
+  PREPARE_SYSTEM,
+  RECAP_SYSTEM,
+  languageText,
+  playbookText,
+  stateText,
+  transcriptText,
+} from "./prompts";
 import { GameBriefSchema, ListenResultSchema } from "./schemas";
 import type { AskRequest, GameBrief, GameConfig, ListenRequest, ListenResult, RulebookRef } from "./types";
 
@@ -59,6 +68,8 @@ export async function prepareGame(config: GameConfig): Promise<GameBrief> {
 Game: ${config.gameName}
 Players (${config.players.length}): ${config.players.join(", ")}
 Table experience: ${config.experience}
+${languageText(config)}
+Write the playbook's text in the table's language. For watchWords, list the words this table will actually say: in Portuguese AND the English game terms they use (e.g. "ladrão", "robber", "banco", "porto"), lower-case.
 ${rb ? "The rulebook is attached above; follow it." : "No rulebook provided; rely on what you know and be honest about gaps."}`,
   });
 

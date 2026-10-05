@@ -37,6 +37,28 @@ Add `scripts/<id>.json`. Write lines the way speech recognition hears them: lowe
 - Add `"pause": 4` for silence before a line, and `"rulebook": "..."` for an excerpt to treat as the rulebook.
 - Lines with no expectation are stretches where it should stay quiet.
 
+- Add `"language": "pt-BR"` for Brazilian tables (the `br-*` scripts). Add `"overlap": 0.5` on a line for crosstalk.
+
 **Every miss or bad interruption from a real game night should become a new script.**
+
+## Synthetic game night and the speech-to-text bake-off
+
+No recording needed. `br-gamenight-tm` is a chaotic 6-player Terraforming Mars night in Brazilian Portuguese: crosstalk, football and pizza talk, English game terms, planted rule slips. The generator voices it with ElevenLabs (a different voice per player, each at a different distance from the phone) over room noise, dice and clinking glasses. It also writes a ground-truth file of who said what, when.
+
+```bash
+npm run gamenight                        # needs ELEVENLABS_API_KEY; writes evals/.cache/audio/br-gamenight-tm.wav
+npm run gamenight -- --noise 2           # a louder room
+npm run gamenight -- --offline           # placeholder voices, no API: checks timing and noise only
+npm run bakeoff                          # needs ASSEMBLYAI_API_KEY and/or SONIOX_API_KEY
+npm run bakeoff -- --file evals/.cache/audio/br-gamenight-tm-noise2.wav
+```
+
+The bake-off streams the audio to each provider at real speed and reports:
+- **WER**: word error rate. Accents are ignored and laughter is collapsed.
+- **Speaker accuracy**: the share of words attributed to the right person, after the best mapping from the provider's labels to players.
+- **Game terms**: how many English terms survived the code-switching.
+- **Lag**: how long after a word was spoken it arrived as final.
+
+Spoken lines are cached in `.cache/tts`, so re-rendering with different noise doesn't spend more ElevenLabs credit.
 
 Playbooks are generated once per game setup and cached in `.cache/briefs/` so runs are comparable. Use `--refresh-briefs` after changing the prepare prompt. Results are written to `results/`.

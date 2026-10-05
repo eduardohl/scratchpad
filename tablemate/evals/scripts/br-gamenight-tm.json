@@ -1,0 +1,306 @@
+{
+  "id": "br-gamenight-tm",
+  "game": "Terraforming Mars",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu",
+    "Thiago"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR synthetic game night for the speech-to-text bake-off and end-to-end tests: 6 players, crosstalk, banter, English game terms, three planted rule moments, one stuck question, one direct question to Tablemate.",
+  "terms": [
+    "first player",
+    "draft",
+    "megacredits",
+    "standard project",
+    "power plant",
+    "award",
+    "banker",
+    "greenery",
+    "TR",
+    "milestones",
+    "terraformer",
+    "city",
+    "Tablemate"
+  ],
+  "lines": [
+    {
+      "who": "Edu",
+      "say": "beleza galera bora começar essa porra"
+    },
+    {
+      "who": "Rafa",
+      "say": "calma que eu ainda tô pegando cerveja"
+    },
+    {
+      "who": "Bia",
+      "say": "Rafa você sempre atrasa tudo",
+      "overlap": 0.6
+    },
+    {
+      "who": "Gui",
+      "say": "quem é o first player"
+    },
+    {
+      "who": "Lu",
+      "say": "o Thiago foi o último a ir pra Marte então é ele"
+    },
+    {
+      "who": "Thiago",
+      "say": "hahaha faz sentido"
+    },
+    {
+      "who": "Edu",
+      "say": "ok todo mundo fez o draft das cartas"
+    },
+    {
+      "who": "Bia",
+      "say": "fiz fiquei com quatro"
+    },
+    {
+      "who": "Gui",
+      "say": "eu fiquei com três e comprei elas por nove megacredits",
+      "overlap": 0.4
+    },
+    {
+      "who": "Thiago",
+      "say": "minha vez vou jogar essa carta por doze"
+    },
+    {
+      "who": "Thiago",
+      "say": "depois faço o standard project de power plant"
+    },
+    {
+      "who": "Thiago",
+      "say": "e depois ainda financio o award de banker",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "On a turn you take one or two actions, then play passes; the third action waits for your next turn this generation."
+      }
+    },
+    {
+      "who": "Rafa",
+      "say": "caralho que turno"
+    },
+    {
+      "who": "Lu",
+      "say": "tá voando hein"
+    },
+    {
+      "who": "Edu",
+      "say": "alguém viu o jogo do Corinthians ontem",
+      "pause": 2.5
+    },
+    {
+      "who": "Gui",
+      "say": "nem me fala que vergonha"
+    },
+    {
+      "who": "Rafa",
+      "say": "o goleiro tomou um frango absurdo",
+      "overlap": 0.5
+    },
+    {
+      "who": "Edu",
+      "say": "hahahaha"
+    },
+    {
+      "who": "Bia",
+      "say": "gente foco no jogo"
+    },
+    {
+      "who": "Bia",
+      "say": "quanto custa o greenery de standard project"
+    },
+    {
+      "who": "Gui",
+      "say": "acho que é vinte"
+    },
+    {
+      "who": "Bia",
+      "say": "beleza pago vinte e boto uma greenery aqui do lado do meu oceano",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "The greenery standard project costs 23 megacredits."
+      }
+    },
+    {
+      "who": "Lu",
+      "say": "boa isso sobe o oxigênio"
+    },
+    {
+      "who": "Thiago",
+      "say": "e você ganha os megacredits do oceano do lado também"
+    },
+    {
+      "who": "Bia",
+      "say": "isso dois a mais"
+    },
+    {
+      "who": "Edu",
+      "say": "minha vez vou passar já",
+      "pause": 2.0
+    },
+    {
+      "who": "Rafa",
+      "say": "eu também passo"
+    },
+    {
+      "who": "Gui",
+      "say": "passo"
+    },
+    {
+      "who": "Lu",
+      "say": "vou fazer mais uma ação jogo essa carta de ciência"
+    },
+    {
+      "who": "Lu",
+      "say": "pronto passo"
+    },
+    {
+      "who": "Thiago",
+      "say": "passo também"
+    },
+    {
+      "who": "Bia",
+      "say": "passo"
+    },
+    {
+      "who": "Rafa",
+      "say": "geral passou bora pra produção"
+    },
+    {
+      "who": "Edu",
+      "say": "eu ganho vinte e dois de TR mais produção"
+    },
+    {
+      "who": "Gui",
+      "say": "sobrou três de energia vou guardar pra usar depois",
+      "expect": {
+        "type": "speak",
+        "category": "skipped-step",
+        "fact": "At the start of production all leftover energy turns into heat; then everyone produces."
+      }
+    },
+    {
+      "who": "Lu",
+      "say": "beleza nova geração"
+    },
+    {
+      "who": "Thiago",
+      "say": "o first player passa pro Rafa"
+    },
+    {
+      "who": "Rafa",
+      "say": "alguém pede uma pizza",
+      "pause": 2.5
+    },
+    {
+      "who": "Edu",
+      "say": "já pedi calabresa e quatro queijos"
+    },
+    {
+      "who": "Bia",
+      "say": "tem que ter uma doce também",
+      "overlap": 0.5
+    },
+    {
+      "who": "Gui",
+      "say": "brigadeiro obviamente"
+    },
+    {
+      "who": "Lu",
+      "say": "nossa que fome"
+    },
+    {
+      "who": "Rafa",
+      "say": "bora jogar minha vez"
+    },
+    {
+      "who": "Rafa",
+      "say": "quantos milestones dá pra pegar no jogo inteiro"
+    },
+    {
+      "who": "Edu",
+      "say": "não faço ideia"
+    },
+    {
+      "who": "Thiago",
+      "say": "acho que não tem limite cada um pega quantos quiser",
+      "expect": {
+        "type": "speak",
+        "category": "stuck-question",
+        "fact": "Only 3 milestones can be claimed in the whole game (8 megacredits each), first come first served."
+      }
+    },
+    {
+      "who": "Rafa",
+      "say": "então pego o terraformer agora"
+    },
+    {
+      "who": "Edu",
+      "say": "ei tablemate quanto custa o primeiro award"
+    },
+    {
+      "who": "Lu",
+      "say": "hahahaha agora ele pergunta pra máquina",
+      "pause": 1.0
+    },
+    {
+      "who": "Gui",
+      "say": "eu jogo essa carta de cidade e boto uma city aqui"
+    },
+    {
+      "who": "Bia",
+      "say": "porra Gui do lado da minha greenery de novo"
+    },
+    {
+      "who": "Gui",
+      "say": "é estratégia meu amor",
+      "overlap": 0.3
+    },
+    {
+      "who": "Thiago",
+      "say": "vou fazer um asteroide pra subir a temperatura"
+    },
+    {
+      "who": "Lu",
+      "say": "quanto tá a temperatura"
+    },
+    {
+      "who": "Thiago",
+      "say": "menos dezoito"
+    },
+    {
+      "who": "Edu",
+      "say": "isso aqui vai demorar umas três horas",
+      "pause": 2.0
+    },
+    {
+      "who": "Rafa",
+      "say": "melhor jogo do mundo e você reclamando"
+    },
+    {
+      "who": "Bia",
+      "say": "verdade Edu para de chorar",
+      "overlap": 0.4
+    },
+    {
+      "who": "Edu",
+      "say": "hahaha tá bom tá bom"
+    },
+    {
+      "who": "Gui",
+      "say": "minha vez vou passar",
+      "pause": 2.0
+    }
+  ]
+}

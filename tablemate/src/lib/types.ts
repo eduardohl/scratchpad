@@ -70,11 +70,16 @@ export interface GameBrief {
   watchWords?: string[];
 }
 
+/** The language the table talks in. pt-BR tables mix in English game terms freely. */
+export type TableLanguage = "pt-BR" | "en";
+
 export interface GameConfig {
   gameName: string;
   players: string[];
   experience: Experience;
   rulebook: RulebookRef;
+  /** Defaults to English when absent (sessions saved before this setting existed). */
+  language?: TableLanguage;
 }
 
 /** Live, lightweight table state. The listener keeps it up to date from what it hears. */

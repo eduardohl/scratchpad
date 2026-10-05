@@ -5,11 +5,20 @@
 | Milestone | Status |
 |---|---|
 | M0 Eval harness | **Built.** 19 scripts, simulator on the real engine, scoring, grader, free dry run. Not yet run live (needs `ANTHROPIC_API_KEY`). |
-| M1 Speech-to-text with speaker labels | Data model ready (`Utterance.speaker`, speaker names in the listener transcript; evals can toggle speakers). Provider spike needs recorded table audio and provider accounts. |
+| M1 Speech-to-text with speaker labels | Data model ready (`Utterance.speaker`). **Bake-off tooling built:** synthetic pt-BR game night (`npm run gamenight`) + real-time comparison of AssemblyAI and Soniox (`npm run bakeoff`). Waiting on ElevenLabs / AssemblyAI / Soniox keys. |
 | M2 Rules trust | Not started |
 | M3 Phase polish | Not started |
 | M4 Beta guardrails + deploy | Not started |
 | M5 Playtest + tune | Not started |
+
+**Decisions since the plan:**
+- The table speaks **Brazilian Portuguese mixed with English**, is loud and jokey, and has **4–8 players**.
+- Tablemate answers in pt-BR and keeps the table's English game terms.
+- The app now has a table-language setting, Portuguese cue phrases (accents ignored), and 17 pt-BR eval scripts.
+- Speech-to-text candidates are narrowed to the ones that do live Portuguese/English code-switching *and* live speaker labels: **AssemblyAI Universal-3.6 Pro** and **Soniox stt-rt-v5**.
+  - Speechmatics' live mode doesn't code-switch.
+  - ElevenLabs' live Scribe has no speaker labels.
+- **ElevenLabs** is the pick for Tablemate's voice.
 
 **Findings so far (dry run, no model calls):** the original gate only got 13 of 16 planted moments to the listener in time. Quiet rule errors without a cue phrase, and round transitions, waited for the 60 s routine sweep. Two fixes brought it to 16/16: a busy-table sweep (5+ new lines and 20 s since the last check) and round-transition cues. Game-specific watch words from the playbook should add headroom in live runs. Cost: about 3 extra checks per pass.
 

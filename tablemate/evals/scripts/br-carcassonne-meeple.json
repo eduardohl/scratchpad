@@ -1,0 +1,52 @@
+{
+  "id": "br-carcassonne-meeple",
+  "game": "Carcassonne",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. A tile extends a city already claimed by another meeple and Gui places his meeple in that same city.",
+  "lines": [
+    {
+      "who": "Gui",
+      "say": "boto essa peça aqui fechando nessa cidade"
+    },
+    {
+      "who": "Gui",
+      "say": "e coloco meu meeple na cidade"
+    },
+    {
+      "who": "Lu",
+      "say": "mas a cidade já tem o meu meeple ela tá ligada"
+    },
+    {
+      "who": "Gui",
+      "say": "ué a gente divide",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "You can't place a meeple on a feature (city, road, field) that is already occupied after placing your tile; Gui's meeple must go elsewhere on the tile or not be placed."
+      }
+    },
+    {
+      "who": "Edu",
+      "say": "kkk ladrão"
+    },
+    {
+      "who": "Bia",
+      "say": "alguém quer jogar truco depois"
+    },
+    {
+      "who": "Rafa",
+      "say": "bora",
+      "pause": 3
+    }
+  ]
+}

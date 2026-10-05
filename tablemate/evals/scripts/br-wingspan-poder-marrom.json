@@ -1,0 +1,51 @@
+{
+  "id": "br-wingspan-poder-marrom",
+  "game": "Wingspan",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui"
+  ],
+  "experience": "new",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. The table is stuck on when a brown power activates and settles on a wrong guess.",
+  "lines": [
+    {
+      "who": "Bia",
+      "say": "vou jogar esse no lago ele tem poder marrom"
+    },
+    {
+      "who": "Bia",
+      "say": "o poder marrom ativa agora quando eu jogo ou depois"
+    },
+    {
+      "who": "Gui",
+      "say": "sei lá mano não faço ideia",
+      "expect": {
+        "type": "speak",
+        "category": "stuck-question",
+        "fact": "Brown powers activate when you take that habitat's action (right to left along the row), not when the bird is played; only white powers trigger when played."
+      }
+    },
+    {
+      "who": "Edu",
+      "say": "acho que é na hora que joga"
+    },
+    {
+      "who": "Bia",
+      "say": "então tá compro uma carta"
+    },
+    {
+      "who": "Rafa",
+      "say": "vocês viram o preço da gasolina"
+    },
+    {
+      "who": "Gui",
+      "say": "nem fala",
+      "pause": 3
+    }
+  ]
+}

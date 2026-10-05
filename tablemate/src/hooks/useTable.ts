@@ -24,6 +24,9 @@ export type { FeedItem, Session } from "@/lib/session";
 export { newSession } from "@/lib/session";
 
 const STORAGE_KEY = "tablemate:session:v1";
+
+/** BCP-47 tag for the browser's speech recognition and synthesis. */
+const speechLang = (s: Session) => (s.config.language === "pt-BR" ? "pt-BR" : "en-US");
 const MAX_UTTERANCES = 400;
 
 export function loadSession(): Session | null {
@@ -82,7 +85,7 @@ export function useTable(initial: Session) {
 
   const say = useCallback(async (text: string) => {
     mutedRef.current = true;
-    await speak(text);
+    await speak(text, speechLang(sRef.current));
     // Let the room tail off before we start transcribing again.
     setTimeout(() => (mutedRef.current = false), 400);
   }, []);
@@ -174,7 +177,7 @@ export function useTable(initial: Session) {
     [ask, update],
   );
 
-  const speech = useSpeech({ onFinal: (t) => hear(t), mutedRef });
+  const speech = useSpeech({ onFinal: (t) => hear(t), mutedRef, lang: speechLang(session) });
   const interimRef = useRef("");
   interimRef.current = speech.interim;
 

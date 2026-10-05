@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { newSession } from "@/hooks/useTable";
 import type { Session } from "@/hooks/useTable";
-import type { Experience, GameBrief, GameConfig, Presence, RulebookRef } from "@/lib/types";
+import type { Experience, GameBrief, GameConfig, Presence, RulebookRef, TableLanguage } from "@/lib/types";
 
 export const DEFAULT_WAKE_WORDS = ["tablemate", "table mate", "hey table"];
 
@@ -24,6 +24,7 @@ export function StartScreen({ onReady }: { onReady: (s: Session) => void }) {
   const [players, setPlayers] = useState<string[]>([]);
   const [playerDraft, setPlayerDraft] = useState("");
   const [experience, setExperience] = useState<Experience>("mixed");
+  const [language, setLanguage] = useState<TableLanguage>("pt-BR");
   const [presence, setPresence] = useState<Presence>("balanced");
   const [voice, setVoice] = useState(true);
   const [rulesMode, setRulesMode] = useState<"none" | "pdf" | "text">("none");
@@ -62,7 +63,7 @@ export function StartScreen({ onReady }: { onReady: (s: Session) => void }) {
         rulebook = { kind: "text", text: rulesText.trim(), name: `${gameName} rules` };
       }
 
-      const config: GameConfig = { gameName: gameName.trim(), players: roster, experience, rulebook };
+      const config: GameConfig = { gameName: gameName.trim(), players: roster, experience, rulebook, language };
       setBusy(rulebook.kind === "none" ? "Recalling the rules…" : "Reading the rulebook…");
       const res = await fetch("/api/prepare", {
         method: "POST",
@@ -147,6 +148,20 @@ export function StartScreen({ onReady }: { onReady: (s: Session) => void }) {
                   {x.label}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div className="field stack" style={{ gap: 6 }}>
+            <span style={{ fontWeight: 500 }}>
+              Table language <span className="hint">Tablemate talks back in this language</span>
+            </span>
+            <div className="segmented" role="group">
+              <button type="button" aria-pressed={language === "pt-BR"} onClick={() => setLanguage("pt-BR")}>
+                Português (BR) + English
+              </button>
+              <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>
+                English
+              </button>
             </div>
           </div>
 

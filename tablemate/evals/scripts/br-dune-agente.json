@@ -1,0 +1,51 @@
+{
+  "id": "br-dune-agente",
+  "game": "Dune: Imperium",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. A player sends an agent to a board space another agent already occupies.",
+  "lines": [
+    {
+      "who": "Rafa",
+      "say": "vou mandar meu agente pra Arrakeen"
+    },
+    {
+      "who": "Edu",
+      "say": "mas o meu agente já tá lá"
+    },
+    {
+      "who": "Rafa",
+      "say": "não tem problema eu boto do lado",
+      "expect": {
+        "type": "speak",
+        "category": "rule-error",
+        "fact": "Each board space holds only one Agent: Rafa can't send an Agent to Arrakeen while Edu's is there (unless a card says otherwise)."
+      }
+    },
+    {
+      "who": "Bia",
+      "say": "isso aí"
+    },
+    {
+      "who": "Gui",
+      "say": "quem tá ganhando o conflito"
+    },
+    {
+      "who": "Bia",
+      "say": "eu com seis espadas"
+    },
+    {
+      "who": "Gui",
+      "say": "vou mandar tropa então",
+      "pause": 3
+    }
+  ]
+}

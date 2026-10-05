@@ -46,10 +46,21 @@ export const RECAP_SYSTEM = `${PERSONA}
 
 The game just ended. Write a short, fun recap the table can read together: the winner and final scores if known, two or three memorable moments from the game log, and one friendly "next time try..." pointer for the table as a whole. Under 120 words. Plain text, no headings.`;
 
+/** How the table talks and how Tablemate should talk back. Part of the cached prefix. */
+export function languageText(config: Pick<GameConfig, "language">): string {
+  if (config.language === "pt-BR") {
+    return `TABLE LANGUAGE: Brazilian Portuguese, freely mixed with English (game terms like "first player", "worker placement", "bonus card", "engine" are often said in English, sometimes mid-sentence). Transcripts are speech recognition of that mix.
+The table is loud and informal: jokes, swearing, trash talk, football, food, side conversations and crosstalk. None of that is a cue to speak.
+Always speak Brazilian Portuguese, casual and friendly like a friend at the table (você, not tu; no European Portuguese). Keep game terms the way this table says them, in English if that's what they use.`;
+  }
+  return `TABLE LANGUAGE: English. Speak English.`;
+}
+
 export function playbookText(config: GameConfig, brief: GameBrief): string {
   return `GAME: ${brief.title}
 PLAYERS (${config.players.length}): ${config.players.join(", ")}
 EXPERIENCE: ${config.experience}
+${languageText(config)}
 
 PLAYBOOK (prepared before the game):
 ${JSON.stringify(brief, null, 1)}`;

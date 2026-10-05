@@ -1,0 +1,55 @@
+{
+  "id": "br-brass-fim-era",
+  "game": "Brass: Birmingham",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui"
+  ],
+  "experience": "experienced",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. The canal era ends and the table goes straight to the rail era without the era-end cleanup.",
+  "lines": [
+    {
+      "who": "Gui",
+      "say": "acabou o baralho último turno da era dos canais"
+    },
+    {
+      "who": "Bia",
+      "say": "beleza conta os pontos dos canais e das indústrias viradas"
+    },
+    {
+      "who": "Edu",
+      "say": "fiz trinta e um"
+    },
+    {
+      "who": "Rafa",
+      "say": "vinte e oito"
+    },
+    {
+      "who": "Bia",
+      "say": "agora era das ferrovias bora todo mundo pega oito cartas e segue",
+      "expect": {
+        "type": "speak",
+        "category": "skipped-step",
+        "fact": "End of the canal era: after scoring, remove all canal links and all level 1 industry tiles from the board before starting the rail era."
+      }
+    },
+    {
+      "who": "Gui",
+      "say": "eu começo construindo uma ferrovia aqui"
+    },
+    {
+      "who": "Edu",
+      "say": "porra esse jogo é muito bom"
+    },
+    {
+      "who": "Rafa",
+      "say": "melhor jogo do mundo",
+      "pause": 3
+    }
+  ]
+}

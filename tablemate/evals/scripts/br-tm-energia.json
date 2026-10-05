@@ -1,0 +1,56 @@
+{
+  "id": "br-tm-energia",
+  "game": "Terraforming Mars",
+  "players": [
+    "Edu",
+    "Rafa",
+    "Bia",
+    "Gui",
+    "Lu"
+  ],
+  "experience": "mixed",
+  "presence": "balanced",
+  "language": "pt-BR",
+  "phase": "play",
+  "notes": "pt-BR. In production, Lu keeps leftover energy instead of converting it to heat.",
+  "lines": [
+    {
+      "who": "Edu",
+      "say": "passo"
+    },
+    {
+      "who": "Rafa",
+      "say": "geral passou bora produção"
+    },
+    {
+      "who": "Bia",
+      "say": "eu ganho vinte e dois de TR mais produção"
+    },
+    {
+      "who": "Lu",
+      "say": "sobrou quatro de energia vou guardar pra próxima geração",
+      "expect": {
+        "type": "speak",
+        "category": "skipped-step",
+        "fact": "At the start of production all leftover energy turns into heat; then everyone produces."
+      }
+    },
+    {
+      "who": "Gui",
+      "say": "beleza nova geração"
+    },
+    {
+      "who": "Rafa",
+      "say": "o first player vai pra Bia"
+    },
+    {
+      "who": "Edu",
+      "say": "alguém tem carregador de iphone"
+    },
+    {
+      "who": "Lu",
+      "say": "tem um ali na sala",
+      "pause": 3
+    }
+  ]
+}
